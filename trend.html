@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trend Harga Emas | PANTESUBER
+    </title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- TradingView Widget -->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+</head>
+<body>
+    <header class="gamer-header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-coins"></i></span>
+                <h1>PANTESUBER</h1>
+            </div>
+            
+            <nav class="gamer-nav">
+                <ul>
+                    <li><a href='/'><i class="fas fa-home"></i> Home</a></li>
+                    <!-- <li><a href="trend.html" class="active"><i class="fas fa-chart-line"></i> Trend</a></li> -->
+                   <!--- <li><a href="#"><i class="fas fa-book"></i> Panduan</a></li>
+                    <li><a href="#"><i class="fas fa-info-circle"></i> Tentang</a></li> --->
+                </ul>
+            </nav>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="trend-section">
+            <h2><i class="fas fa-chart-line"></i> Trend Harga Emas Global (XAU/USD)</h2>
+            <div class="chart-container">
+                <!-- TradingView Widget -->
+                <div class="tradingview-widget-container">
+                    <div id="xauusd-chart" style="height: 500px;"></div>
+                    <div class="tradingview-widget-copyright">
+                        <a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="gamer-footer">
+        <div class="container">
+            <div class="footer-section">
+                <h4>Kontak Kami</h4>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +62 896 5673 7562</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Sosial Media</h4>
+                <div class="social-links">
+                    <a href="https:www.instagram.com/kevinchandramw_"><i class="fab fa-instagram"></i></a>
+                    <a href="https:wa.me/+6289656737562"><i class="fab fa-whatsapp"></i></a>
+
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Credit</h4>
+                <p>© 2025 KEVIN Pantes BIP All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Chart XAU/USD
+        new TradingView.widget({
+            "autosize": true,
+            "symbol": "FX_IDC:XAUUSD",
+            "interval": "D",
+            "timezone": "Asia/Jakarta",
+            "theme": "dark",
+            "style": "1",
+            "locale": "id",
+            "toolbar_bg": "#1a1a2e",
+            "enable_publishing": false,
+            "hide_top_toolbar": false,
+            "hide_side_toolbar": false,
+            "allow_symbol_change": true,
+            "container_id": "xauusd-chart",
+            "studies": ["RSI@tv-basicstudies"]
+        });
+
+    </script>
+</body>
+</html>
