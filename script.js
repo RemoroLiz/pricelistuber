@@ -145,9 +145,7 @@ function displayMainPriceTable(type, currentData, oldData) {
             <tr>
                 <td>${item.code}</td>
                 <td class="highlight">${formatCurrency(item.sellPrice)}</td>
-                <td>${renderChangeIndicator(sellChange, sellPercentage)}</td>
                 <td>${formatCurrency(item.buybackPrice)}</td>
-                <td>${item.buybackPrice > 0 ? renderChangeIndicator(buybackChange, buybackPercentage) : '-'}</td>
             </tr>
         `;
     });
