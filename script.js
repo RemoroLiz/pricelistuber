@@ -73,7 +73,7 @@ async function loadMainPriceData(type) {
     priceTableContainer.innerHTML = '<div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Memuat data...</p></div>';
 
     try {
-        const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQFH0squhL_c2KoNryfBrysWZEKTTUpthg_1XVE-fT3r7-ew1_lkbFqENefrlBLHClis53FyDdNiUkh/pub?gid=216173443&single=true&output=csv');
+        const response = await fetch('https://https://docs.google.com/spreadsheets/d/e/2PACX-1vQebzRjsN2J41bPrd17A1ihYUykIGl0UJerJv6kTaVN2N3LywxbZ-q07mlxwGvb3fICS7xM1iut-0j4/pub?gid=1822735616&single=true&output=csv');
         const csvText = await response.text();
         const data = parseCSVToJSON(csvText);
 
