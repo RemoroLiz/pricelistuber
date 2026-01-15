@@ -122,9 +122,7 @@ function displayMainPriceTable(type, currentData, oldData) {
                 <tr>
                     <th>Kode</th>
                     <th>Harga Jual</th>
-                    <th>Perubahan</th>
                     <th>Harga Buyback</th>
-                    <th>Perubahan</th>
                 </tr>
             </thead>
             <tbody>
