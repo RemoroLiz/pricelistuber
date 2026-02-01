@@ -1,1 +1,136 @@
 
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0"
+    />
+    <title>Harga Emas Real-time</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header dengan posisi fixed -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <span class="logo-icon">
+            <img
+              src="https://tokomaspantes.wordpress.com/wp-content/uploads/2021/07/logo-pantes-new-size.png?w=301"
+              alt="Pantes BIP Logo"
+              class="logo-image"
+            />
+          </span>
+          <h1>Pantes<span>UBER</span></h1>
+        </div>
+
+        <div class="marquee-container">
+          <div class="marquee">
+            <span class="marquee-text" id="marqueeText"
+              >Memuat informasi harga emas terbaru...</span
+            >
+          </div>
+        </div>
+
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content dengan tinggi yang menyesuaikan -->
+    <main class="main-content">
+      <div class="container">
+        <section class="price-section">
+          <!-- Loading State -->
+          <div class="loading-state" id="loadingState">
+            <div class="loading-spinner">
+              <i class="fas fa-spinner fa-spin"></i>
+              <p>Memuat data harga...</p>
+            </div>
+          </div>
+
+          <!-- Container untuk card tabel -->
+          <div
+            class="cards-container"
+            id="cardsContainer"
+            style="display: none"
+          >
+            <button class="nav-btn left-nav" aria-label="Tabel sebelumnya">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="card-wrapper">
+              <div class="card-table" id="tableEmas">
+                <h2 class="card-title">Harga Emas</h2>
+                <div class="table-responsive" id="priceTableLeft"></div>
+              </div>
+            </div>
+
+            <div class="card-wrapper">
+              <div class="card-table" id="tableAntam">
+                <h2 class="card-title">Harga Antam</h2>
+                <div class="table-responsive" id="priceTableRight"></div>
+              </div>
+            </div>
+
+            <button class="nav-btn right-nav" aria-label="Tabel berikutnya">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <!-- Video Container -->
+          <div class="video-container" id="videoContainer">
+            <div class="video-wrapper">
+              <!-- Video akan dimasukkan secara dinamis -->
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer dengan posisi fixed di bawah -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Kontak Kami</h4>
+          <ul>
+            <li><i class="fas fa-phone"></i> +62 896 5673 7562</li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Sosial Media</h4>
+          <div class="social-links">
+            <a
+              href="https://www.instagram.com/kevinchandramw_"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a
+              href="https://wa.me/+6289656737562"
+              target="_blank"
+              aria-label="WhatsApp"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Credit</h4>
+          <p>© 2025 KEVIN PANTES UBER. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
