@@ -1,24 +1,24 @@
-/* ===== VARIABEL CSS ===== */
+/* ===== VARIABEL CSS LIGHT MODE ===== */
 :root {
   --primary: #d4af37;
   --primary-dark: #b8860b;
-  --primary-light: #f0e6d2;
+  --primary-light: #f9f5e9;
   --secondary: #2c3e50;
   --secondary-light: #34495e;
   --accent: #3498db;
   --text: #2c3e50;
   --text-light: #7f8c8d;
-  --bg: #f5f7fa;
+  --bg: #f8f9fa;
   --card-bg: #ffffff;
-  --table-header: #f8f9fa;
+  --table-header: #f1f3f5;
   --table-row-odd: #fafafa;
   --table-row-even: #ffffff;
-  --border: #e0e0e0;
+  --border: #e9ecef;
   --success: #27ae60;
   --error: #e74c3c;
   --warning: #f39c12;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.08);
   --radius: 12px;
   --radius-sm: 8px;
   --transition: all 0.3s ease;
