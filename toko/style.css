@@ -24,6 +24,12 @@
   --transition: all 0.3s ease;
 }
 
+/* ===== MEMAKSAKAN LIGHT MODE PADA HTML ===== */
+html {
+  color-scheme: light !important;
+  forced-color-adjust: none !important;
+}
+
 /* ===== RESET & BASE STYLES ===== */
 * {
   margin: 0;
@@ -637,6 +643,42 @@ body {
   color: var(--primary);
   background: var(--primary-light);
   transform: translateY(-2px);
+}
+
+/* ===== OVERRIDE DARK MODE ===== */
+/* Ini akan mengatasi jika ada dark theme di sistem */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #d4af37;
+    --primary-dark: #b8860b;
+    --primary-light: #f9f5e9;
+    --secondary: #2c3e50;
+    --secondary-light: #34495e;
+    --accent: #3498db;
+    --text: #2c3e50;
+    --text-light: #7f8c8d;
+    --bg: #f8f9fa;
+    --card-bg: #ffffff;
+    --table-header: #f1f3f5;
+    --table-row-odd: #fafafa;
+    --table-row-even: #ffffff;
+    --border: #e9ecef;
+  }
+  
+  body,
+  .header,
+  .footer,
+  .card-table,
+  .price-table {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+  }
+  
+  .price-table th,
+  .price-table td {
+    background-color: inherit !important;
+    color: var(--text) !important;
+  }
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
