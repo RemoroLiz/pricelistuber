@@ -1,108 +1,735 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harga Emas Saat Ini</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap" rel="stylesheet">
-    <!-- Add this to your head -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Harga Emas Saat Ini | PANTESUBER</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-</head>
-<body>
-  <header class="gamer-header">
-    <div class="container">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary: #ffd700;
+        --secondary: #1a1a2e;
+        --accent: #00ffff;
+        --text: #ffffff;
+        --text-secondary: #cccccc;
+        --bg: #0f0f1a;
+        --card-bg: #1a1a2e;
+        --table-bg: #16213e;
+        --table-header: #0f3460;
+        --table-row-odd: #1a1a2e;
+        --table-row-even: #16213e;
+        --highlight: rgba(255, 215, 0, 0.1);
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      /* HEADER */
+      .gamer-header {
+        background-color: var(--secondary);
+        padding: 12px 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .gamer-header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "Orbitron", sans-serif;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--primary);
+      }
+
+      .logo-icon {
+        font-size: 1.5rem;
+      }
+
+      .gamer-nav ul {
+        display: flex;
+        list-style: none;
+        gap: 20px;
+      }
+
+      .gamer-nav a {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .gamer-nav a:hover {
+        color: var(--primary);
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* MAIN */
+      main {
+        padding: 20px 0 40px;
+      }
+
+      .panduan-section {
+        background: linear-gradient(135deg, var(--secondary), var(--bg));
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border-left: 3px solid var(--primary);
+      }
+
+      .panduan-section h2 {
+        color: var(--primary);
+        margin-bottom: 8px;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .panduan-section p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+      }
+
+      /* CARDS */
+      .cards-section {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 30px;
+      }
+
+      .card {
+        background-color: var(--card-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          border 0.2s;
+        border: 1px solid rgba(255, 215, 0, 0.3);
+        text-align: center;
+        padding: 12px 8px;
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        border-color: var(--primary);
+      }
+
+      .card.active {
+        border: 2px solid var(--primary);
+        background: rgba(255, 215, 0, 0.1);
+        box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+      }
+
+      .card-image img {
+        max-height: 55px;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .card-content h3 {
+        color: var(--primary);
+        font-size: 1rem;
+        margin: 8px 0 4px;
+        font-family: "Orbitron", sans-serif;
+      }
+
+      .card-label {
+        background-color: rgba(255, 215, 0, 0.2);
+        color: var(--primary);
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+      }
+
+      /* TABLE SECTION */
+      .price-table-section {
+        margin-top: 15px;
+      }
+
+      .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        background-color: var(--table-bg);
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .price-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+        min-width: 480px;
+      }
+
+      .price-table th {
+        background-color: var(--table-header);
+        color: var(--primary);
+        padding: 12px 10px;
+        text-align: left;
+        font-family: "Orbitron", sans-serif;
+        font-weight: 600;
+      }
+
+      .price-table td {
+        padding: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .price-table tr:nth-child(odd) {
+        background-color: var(--table-row-odd);
+      }
+
+      .price-table tr:nth-child(even) {
+        background-color: var(--table-row-even);
+      }
+
+      .price-table tr:hover {
+        background-color: var(--highlight);
+      }
+
+      .price-table .highlight {
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .table-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        color: var(--text-secondary);
+        text-align: center;
+      }
+
+      .table-footer {
+        padding: 12px;
+        text-align: center;
+        font-size: 0.7rem;
+        color: var(--text-secondary);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* BARCODE COMPLAINT SECTION (NEW) */
+      .barcode-complaint {
+        margin-top: 25px;
+        background: linear-gradient(145deg, #11111f, #0a0a12);
+        border-radius: 20px;
+        padding: 20px 16px;
+        text-align: center;
+        border: 1px solid rgba(255, 215, 0, 0.25);
+        transition: all 0.2s;
+      }
+
+      .barcode-complaint h4 {
+        color: var(--primary);
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-family: "Orbitron", monospace;
+      }
+
+      .barcode-gif-container {
+        display: inline-block;
+        background: white;
+        padding: 12px 20px;
+        border-radius: 24px;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4);
+      }
+
+      .barcode-gif-container img {
+        max-width: 100%;
+        height: auto;
+        max-height: 100px;
+        border-radius: 12px;
+      }
+
+      .complaint-text {
+        margin-top: 12px;
+        font-size: 0.75rem;
+        color: #aaa;
+      }
+
+      /* FOOTER */
+      .gamer-footer {
+        background-color: var(--secondary);
+        padding: 30px 0;
+        margin-top: 50px;
+      }
+
+      .gamer-footer .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 25px;
+      }
+
+      .footer-section h4 {
+        color: var(--primary);
+        margin-bottom: 12px;
+      }
+
+      .footer-section ul {
+        list-style: none;
+      }
+
+      .footer-section li {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-links a {
+        color: var(--text);
+        font-size: 1.4rem;
+        transition: 0.2s;
+      }
+
+      .social-links a:hover {
+        color: var(--primary);
+      }
+
+      /* LOADING & ERROR */
+      .loading-spinner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px;
+        gap: 12px;
+        font-size: 1rem;
+      }
+
+      .error-message {
+        text-align: center;
+        padding: 30px;
+        color: #ff8888;
+      }
+
+      /* RESPONSIVE (MOBILE FIX: ALL DATA VISIBLE) */
+      @media (max-width: 768px) {
+        .gamer-nav {
+          position: fixed;
+          top: 64px;
+          left: -100%;
+          width: 80%;
+          height: calc(100vh - 64px);
+          background-color: var(--secondary);
+          transition: left 0.3s;
+          z-index: 999;
+          padding: 20px;
+        }
+        .gamer-nav.active {
+          left: 0;
+        }
+        .gamer-nav ul {
+          flex-direction: column;
+          gap: 18px;
+        }
+        .mobile-menu-btn {
+          display: block;
+        }
+        .cards-section {
+          gap: 8px;
+        }
+        .card-content h3 {
+          font-size: 0.85rem;
+        }
+        /* fix table: semua kolom tetap muncul di hp (harga buyback tetap terlihat) */
+        .price-table {
+          min-width: 100%;
+          font-size: 0.75rem;
+        }
+        .price-table th,
+        .price-table td {
+          padding: 8px 6px;
+          white-space: nowrap;
+        }
+        /* pastikan kolom buyback tidak disembunyikan */
+        .price-table th:nth-child(3),
+        .price-table td:nth-child(3) {
+          display: table-cell;
+        }
+      }
+
+      @media (max-width: 550px) {
+        .price-table {
+          font-size: 0.7rem;
+        }
+        .price-table th,
+        .price-table td {
+          padding: 6px 4px;
+        }
+        .card-image img {
+          max-height: 40px;
+        }
+        .barcode-gif-container img {
+          max-height: 70px;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .fade-in {
+        animation: fadeIn 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="gamer-header">
+      <div class="container">
         <div class="logo">
-            <span class="logo-icon"><i class="fas fa-coins"></i></span>
-            <h1>PANTESUBER</h1>
+          <span class="logo-icon"><i class="fas fa-coins"></i></span>
+          <h1>PANTESUBER</h1>
         </div>
-        
         <nav class="gamer-nav">
-            <ul>
-                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href='/trend'><i class="fas fa-chart-line"></i> Trend</a></li>
-            </ul>
+          <ul>
+            <li>
+              <a href="#"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li>
+              <a href="/trend"><i class="fas fa-chart-line"></i> Trend</a>
+            </li>
+          </ul>
         </nav>
-        
-        <button class="mobile-menu-btn">
-            <i class="fas fa-bars"></i>
+        <button class="mobile-menu-btn" aria-label="Menu">
+          <i class="fas fa-bars"></i>
         </button>
-    </div>
-</header>
+      </div>
+    </header>
 
     <main class="container">
-        <section class="panduan-section">
-            <h2><i class="fas fa-book-open"></i> Panduan Investasi Emas</h2>
-            <p>Pantau harga emas terkini untuk investasi yang lebih cerdas. Klik pada Kartu di bawah untuk melihat detail harga.</p>
-        </section>
+      <section class="panduan-section">
+        <h2><i class="fas fa-book-open"></i> Panduan Investasi Emas</h2>
+        <p>
+          Pantau harga emas terkini untuk investasi yang lebih cerdas. Klik pada
+          Kartu di bawah untuk melihat detail harga.
+        </p>
+      </section>
 
-        <section class="cards-section">
-            <div class="card" data-type="emas">
-                <div class="card-image">
-                    <img src="https://tokomaspantes.com/wp-content/uploads/2021/02/logo-pantes-putih-new-size-1-1-300x135-1.png" alt="Emas">
-                </div>
-                <div class="card-content">
-                    <h3>EMAS</h3>
-                    <span class="card-label">Berbagai Karat</span>
-                </div>
-            </div>
+      <section class="cards-section">
+        <div class="card" data-type="emas">
+          <div class="card-image">
+            <img
+              src="https://tokomaspantes.com/wp-content/uploads/2021/02/logo-pantes-putih-new-size-1-1-300x135-1.png"
+              alt="Emas"
+            />
+          </div>
+          <div class="card-content">
+            <h3>EMAS</h3>
+            <span class="card-label">Berbagai Karat</span>
+          </div>
+        </div>
+        <div class="card" data-type="antam">
+          <div class="card-image">
+            <img
+              src="https://storage.googleapis.com/contents.antam.com/uploads/loco_antam_colorless_a16352cd8d.svg"
+              alt="Antam"
+            />
+          </div>
+          <div class="card-content">
+            <h3>ANTAM</h3>
+            <span class="card-label">Logam Mulia</span>
+          </div>
+        </div>
+        <div class="card" data-type="archi">
+          <div class="card-image">
+            <img
+              src="https://i0.wp.com/lotusarchi.com/wp-content/uploads/2022/08/Logo_Lotus_Archi_1.png?fit=900%2C900&ssl=1"
+              alt="Archi"
+            />
+          </div>
+          <div class="card-content">
+            <h3>ARCHI</h3>
+            <span class="card-label">Logam Mulia</span>
+          </div>
+        </div>
+      </section>
 
-            <div class="card" data-type="antam">
-                <div class="card-image">
-                    <img src="https://storage.googleapis.com/contents.antam.com/uploads/loco_antam_colorless_a16352cd8d.svg" alt="Antam">
-                </div>
-                <div class="card-content">
-                    <h3>ANTAM</h3>
-                    <span class="card-label">Logam Mulia</span>
-                </div>
-            </div>
-
-            <div class="card" data-type="archi">
-                <div class="card-image">
-                    <img src="https://i0.wp.com/lotusarchi.com/wp-content/uploads/2022/08/Logo_Lotus_Archi_1.png?fit=900%2C900&ssl=1" alt="Archi">
-                </div>
-                <div class="card-content">
-                    <h3>ARCHI</h3>
-                    <span class="card-label">Logam Mulia</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="price-table-section">
-            <div class="table-responsive" id="priceTableContainer">
-                <div class="table-placeholder">
-                    <i class="fas fa-coins"></i>
-                    <p>Klik salah satu kartu di atas untuk melihat harga</p>
-                </div>
-            </div>
-        </section>
+      <section class="price-table-section">
+        <div id="priceTableContainer" class="table-responsive">
+          <div class="table-placeholder">
+            <i class="fas fa-coins"></i>
+            <p>Klik salah satu kartu di atas untuk melihat harga</p>
+          </div>
+        </div>
+        <!-- BARCODE LAYANAN PENGADUAN (GIF) - DITAMBAHKAN DI BAWAH TABEL -->
+        <div class="barcode-complaint" id="barcodeSection">
+          <h4><i class="fas fa-qrcode"></i> Layanan Pengaduan 24/7</h4>
+          <div class="barcode-gif-container">
+            <img
+              id="complaintBarcodeGif"
+              src="https://media.giphy.com/media/3o7abB06u9bNzA8LC8/giphy.gif?cid=790b7611m1k0vxpr1vbrk25v5zgfpnk5zbbt6fclnkyvykh5&ep=v1_gifs_search&rid=giphy.gif&ct=g"
+              alt="Barcode Pengaduan GIF"
+            />
+          </div>
+          <div class="complaint-text">
+            <i class="fas fa-headset"></i> Scan barcode untuk melaporkan kendala
+            / info harga
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="gamer-footer">
-        <div class="container">
-            <div class="footer-section">
-                <h4>Kontak Kami</h4>
-                <ul>
-                    <li><i class="fas fa-phone"></i> +62 896 5673 7562</li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Sosial Media</h4>
-                <div class="social-links">
-                    <a href="https:www.instagram.com/kevinchandramw_"><i class="fab fa-instagram"></i></a>
-                    <a href="https:wa.me/+6289656737562"><i class="fab fa-whatsapp"></i></a>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h4>Credit</h4>
-                <p>© 2025 KEVIN Pantes UBER All rights reserved.</p>
-            </div>
+      <div class="container">
+        <div class="footer-section">
+          <h4>Kontak Kami</h4>
+          <ul>
+            <li><i class="fas fa-phone"></i> +62 896 5673 7562</li>
+          </ul>
         </div>
+        <div class="footer-section">
+          <h4>Sosial Media</h4>
+          <div class="social-links">
+            <a href="https://www.instagram.com/kevinchandramw_"
+              ><i class="fab fa-instagram"></i></a
+            ><a href="https://wa.me/+6289656737562"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Credit</h4>
+          <p>© 2025 KEVIN Pantes UBER All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
-    <script src="script.js"></script>
-    
-</body>
+    <script>
+      // ---------- HELPER FUNCTIONS ----------
+      function formatCurrency(amount) {
+        if (isNaN(amount)) amount = 0;
+        return new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+          minimumFractionDigits: 0,
+        }).format(amount);
+      }
+
+      // Parse CSV (menangani koma dan angka bersih)
+      function parseCSVToJSON(csvText) {
+        const lines = csvText.trim().split("\n");
+        if (lines.length < 2) return [];
+        const headers = lines[0]
+          .split(",")
+          .map((h) => h.toLowerCase().replace(/\s+/g, "_"));
+        return lines.slice(1).map((line) => {
+          const values = line.split(",").map((v) => v.trim());
+          const obj = {};
+          headers.forEach((header, idx) => {
+            let val = values[idx] || "";
+            if (
+              [
+                "harga_jual",
+                "harga_jual_lama",
+                "buyback",
+                "buyback_lama",
+              ].includes(header)
+            ) {
+              val = parseInt(val.replace(/[^0-9]/g, ""), 10) || 0;
+            }
+            obj[header] = val;
+          });
+          return obj;
+        });
+      }
+
+      let currentActiveType = "emas";
+      const priceContainer = document.getElementById("priceTableContainer");
+
+      async function loadMainPriceData(type) {
+        if (!priceContainer) return;
+        priceContainer.innerHTML =
+          '<div class="loading-spinner"><i class="fas fa-spinner fa-spin fa-2x"></i><p>Memuat data harga...</p></div>';
+        try {
+          const response = await fetch(
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vQebzRjsN2J41bPrd17A1ihYUykIGl0UJerJv6kTaVN2N3LywxbZ-q07mlxwGvb3fICS7xM1iut-0j4/pub?gid=1822735616&single=true&output=csv",
+          );
+          const csvText = await response.text();
+          const allData = parseCSVToJSON(csvText);
+          const filtered = allData.filter(
+            (row) => row.tipe && row.tipe.toLowerCase() === type.toLowerCase(),
+          );
+          // data saat ini & data lama (perubahan)
+          const currentData = filtered.map((row) => ({
+            code: row.kode,
+            sellPrice: parseInt(row.harga_jual) || 0,
+            buybackPrice: parseInt(row.buyback) || 0,
+          }));
+          const oldData = filtered.map((row) => ({
+            code: row.kode,
+            sellPrice: parseInt(row.harga_jual_lama) || 0,
+            buybackPrice: parseInt(row.buyback_lama) || 0,
+          }));
+          displayPriceTable(type, currentData, oldData);
+        } catch (err) {
+          console.error(err);
+          priceContainer.innerHTML = `<div class="error-message"><i class="fas fa-exclamation-triangle"></i><p>Gagal memuat data. Coba refresh.</p></div>`;
+        }
+      }
+
+      function displayPriceTable(type, currentData, oldData) {
+        if (!currentData || currentData.length === 0) {
+          priceContainer.innerHTML = `<div class="error-message"><i class="fas fa-database"></i><p>Tidak ada data untuk ${type.toUpperCase()}</p></div>`;
+          return;
+        }
+        let tableHTML = `<table class="price-table fade-in">
+        <thead><tr><th>Kode</th><th>Harga Jual</th><th>Harga Buyback</th></tr></thead>
+        <tbody>`;
+        currentData.forEach((item) => {
+          const oldItem = oldData.find((old) => old.code === item.code) || {};
+          // opsional: indikator perubahan tidak wajib, tapi bagus untuk responsif
+          tableHTML += `<tr>
+          <td>${item.code}</td>
+          <td class="highlight">${formatCurrency(item.sellPrice)}</td>
+          <td>${formatCurrency(item.buybackPrice)}</td>
+        </tr>`;
+        });
+        tableHTML += `</tbody></table>
+        <div class="table-footer">Terakhir diperbarui: ${new Date().toLocaleString("id-ID")}</div>`;
+        priceContainer.innerHTML = tableHTML;
+      }
+
+      // MOBILE MENU HANDLER
+      function initMobileMenu() {
+        const menuBtn = document.querySelector(".mobile-menu-btn");
+        const nav = document.querySelector(".gamer-nav");
+        if (menuBtn && nav) {
+          menuBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            nav.classList.toggle("active");
+          });
+          document.addEventListener("click", (e) => {
+            if (!nav.contains(e.target) && !menuBtn.contains(e.target))
+              nav.classList.remove("active");
+          });
+          nav.addEventListener("click", (e) => e.stopPropagation());
+        }
+      }
+
+      // CARD SELECTION
+      function initCards() {
+        const cards = document.querySelectorAll(".card");
+        cards.forEach((card) => {
+          card.addEventListener("click", function () {
+            const type = this.getAttribute("data-type");
+            if (!type) return;
+            currentActiveType = type;
+            cards.forEach((c) => c.classList.remove("active"));
+            this.classList.add("active");
+            loadMainPriceData(type);
+          });
+        });
+        // default load emas
+        if (cards.length) {
+          cards[0].classList.add("active");
+          loadMainPriceData("emas");
+        } else {
+          loadMainPriceData("emas");
+        }
+      }
+
+      // Ganti barcode GIF dengan alternatif jika perlu, tetapi menggunakan link GIF pengaduan yang jelas
+      // Untuk memastikan gambar barcode berupa GIF muncul dengan baik (bisa pakai placeholder layanan pengaduan)
+      // Saya menggunakan GIF dinamis dari layanan pengaduan publik sebagai ilustrasi, bisa diganti URL customer
+      // sesuai keinginan: misal "https://example.com/complaint_barcode.gif"
+      // Tapi disini kita gunakan GIF menarik dengan tulisan "Scan Me" style agar user friendly.
+      function enhanceBarcode() {
+        const barcodeImg = document.getElementById("complaintBarcodeGif");
+        if (barcodeImg) {
+          // Alternatif: ganti dengan GIF khusus layanan pengaduan yang lebih representatif
+          // Namun agar konsisten, gunakan barcode animasi yang menunjukkan layanan
+          barcodeImg.src =
+            "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExemVnNHg5MG44YnR0enRpY2V5cGZwYXVjcXFzOW52enBqYXRpMTV6eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7abB06u9bNzA8LC8/giphy.gif";
+          barcodeImg.alt = "Barcode Layanan Pengaduan";
+          barcodeImg.style.maxWidth = "100%";
+          barcodeImg.style.height = "auto";
+          barcodeImg.style.borderRadius = "12px";
+        }
+      }
+
+      // Perbaikan responsif: pastikan di HP semua kolom terlihat (sudah pakai white-space: nowrap dan overflow auto)
+      // dan tidak ada yang menyembunyikan buyback. Saya juga hapus media query yang menyembunyikan kolom sebelumnya.
+      // Saya juga menambahkan viewport meta agar skala selalu tepat.
+      document.addEventListener("DOMContentLoaded", () => {
+        initMobileMenu();
+        initCards();
+        enhanceBarcode();
+        // Jika carousel tidak dipakai, tidak masalah, fungsi carousel dihilangkan karena tidak dipanggil di HTML utama.
+        // Namun pastikan tidak ada error karena fungsi initCarousel tidak ada.
+        // Fitur tambahan: jaga konsistensi saat resize
+        window.addEventListener("resize", () => {
+          const nav = document.querySelector(".gamer-nav");
+          if (nav && window.innerWidth > 768) nav.classList.remove("active");
+        });
+      });
+    </script>
+  </body>
 </html>
